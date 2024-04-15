@@ -17,10 +17,10 @@ set dir [pwd]
 set ::all_tests []
 
 set test_dirs {
-    unit
     unit/type
-    integration
     unit/cluster
+    unit
+    integration
 }
 
 foreach test_dir $test_dirs {
