@@ -488,12 +488,10 @@ start_server {tags {"hash"}} {
     # 'Value at:0x7f50b95df180 refcount:1 encoding:listpack serializedlength:158 lru:1878956 lru_seconds_idle:0'
     test {Is a ziplist encoded Hash promoted on big payload?} {
         set original_max_value [lindex [r config get hash-max-ziplist-value] 1]
-        r config set hash-max-listpack-value 8
+        r config set hash-max-listpack-value $original_max_value
 
         r hset smallhash foo [string repeat a 1024]
         r debug object smallhash
-
-        r config set hash-max-listpack-value $original_max_value
     } {*hashtable*} {needs:debug}
 
     test {HINCRBY against non existing database key} {
