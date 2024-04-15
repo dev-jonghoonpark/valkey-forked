@@ -19,8 +19,8 @@ set ::all_tests []
 set test_dirs {
     unit
     unit/type
-    unit/cluster
     integration
+    unit/cluster
 }
 
 foreach test_dir $test_dirs {
