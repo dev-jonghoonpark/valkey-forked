@@ -18,8 +18,8 @@ set ::all_tests []
 
 set test_dirs {
     unit/type
-    unit/cluster
     unit
+    unit/cluster
     integration
 }
 
