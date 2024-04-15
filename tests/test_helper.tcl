@@ -17,8 +17,8 @@ set dir [pwd]
 set ::all_tests []
 
 set test_dirs {
-    unit/type
     unit
+    unit/type
     unit/cluster
     integration
 }

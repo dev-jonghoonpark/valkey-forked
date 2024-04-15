@@ -482,9 +482,18 @@ start_server {tags {"hash"}} {
         lappend rv [r hexists bighash nokey]
     } {1 0 1 0}
 
+    # hashtable {{a 1} {b 2} {c 3} {d 4} {e 5} {6 f} {7 g} {8 h} {9 i} {[randstring 70 90 alpha] 10}}
+    # listpack {{a 1} {b 2} {c 3} {d 4} {e 5} {6 f} {7 g} {8 h} {9 i} {10 j}}
+    # Expected '*hashtable*' to equal or match
+    # 'Value at:0x7f50b95df180 refcount:1 encoding:listpack serializedlength:158 lru:1878956 lru_seconds_idle:0'
     test {Is a ziplist encoded Hash promoted on big payload?} {
+        set original_max_value [lindex [r config get hash-max-ziplist-value] 1]
+        r config set hash-max-listpack-value 8
+
         r hset smallhash foo [string repeat a 1024]
         r debug object smallhash
+
+        r config set hash-max-listpack-value $original_max_value
     } {*hashtable*} {needs:debug}
 
     test {HINCRBY against non existing database key} {
@@ -685,7 +694,7 @@ start_server {tags {"hash"}} {
     test {HINCRBYFLOAT over hash-max-listpack-value encoded with a listpack} {
         set original_max_value [lindex [r config get hash-max-ziplist-value] 1]
         r config set hash-max-listpack-value 8
-        
+
         # hash's value exceeds hash-max-listpack-value
         r del smallhash
         r del bighash
