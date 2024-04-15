@@ -2,22 +2,21 @@ This README is under construction as we work to build a new community driven hig
 
 This project was forked from the open source Redis project right before the transition to their new source available licenses.
 
-This README is just a fast *quick start* document. We are currently working on a more permanent documentation page.
+This README is just a fast _quick start_ document. We are currently working on a more permanent documentation page.
 
-What is Valkey?
---------------
+## What is Valkey?
+
 Valkey is a high-performance data structure server that primarily serves key/value workloads.
 It supports a wide range of native structures and an extensible plugin system for adding new data structures and access patterns.
 
-Building Valkey
---------------
+## Building Valkey
 
 Valkey can be compiled and used on Linux, OSX, OpenBSD, NetBSD, FreeBSD.
 We support big endian and little endian architectures, and both 32 bit
 and 64 bit systems.
 
 It may compile on Solaris derived systems (for instance SmartOS) but our
-support for this platform is *best effort* and Valkey is not guaranteed to
+support for this platform is _best effort_ and Valkey is not guaranteed to
 work as well as in Linux, OSX, and \*BSD.
 
 It is as simple as:
@@ -29,7 +28,7 @@ libssl-dev on Debian/Ubuntu) and run:
 
     % make BUILD_TLS=yes
 
-To build with systemd support, you'll need systemd development libraries (such 
+To build with systemd support, you'll need systemd development libraries (such
 as libsystemd-dev on Debian/Ubuntu or systemd-devel on CentOS) and run:
 
     % make USE_SYSTEMD=yes
@@ -52,9 +51,7 @@ installed):
     % ./utils/gen-test-certs.sh
     % ./runtest --tls
 
-
-Fixing build problems with dependencies or cached build options
----------
+## Fixing build problems with dependencies or cached build options
 
 Valkey has some dependencies which are included in the `deps` directory.
 `make` does not automatically rebuild dependencies even if something in
@@ -73,8 +70,7 @@ optimizations (for debugging purposes), and other similar build time options,
 those options are cached indefinitely until you issue a `make distclean`
 command.
 
-Fixing problems building 32 bit binaries
----------
+## Fixing problems building 32 bit binaries
 
 If after building Valkey with a 32 bit target you need to rebuild it
 with a 64 bit target, or the other way around, you need to perform a
@@ -83,12 +79,11 @@ with a 64 bit target, or the other way around, you need to perform a
 In case of build errors when trying to build a 32 bit binary of Valkey, try
 the following steps:
 
-* Install the package libc6-dev-i386 (also try g++-multilib).
-* Try using the following command line instead of `make 32bit`:
+- Install the package libc6-dev-i386 (also try g++-multilib).
+- Try using the following command line instead of `make 32bit`:
   `make CFLAGS="-m32 -march=native" LDFLAGS="-m32"`
 
-Allocator
----------
+## Allocator
 
 Selecting a non-default memory allocator when building Valkey is done by setting
 the `MALLOC` environment variable. Valkey is compiled and linked against libc
@@ -104,28 +99,25 @@ To compile against jemalloc on Mac OS X systems, use:
 
     % make MALLOC=jemalloc
 
-Monotonic clock
----------------
+## Monotonic clock
 
 By default, Valkey will build using the POSIX clock_gettime function as the
-monotonic clock source.  On most modern systems, the internal processor clock
-can be used to improve performance.  Cautions can be found here: 
-    http://oliveryang.net/2015/09/pitfalls-of-TSC-usage/
+monotonic clock source. On most modern systems, the internal processor clock
+can be used to improve performance. Cautions can be found here:
+http://oliveryang.net/2015/09/pitfalls-of-TSC-usage/
 
 To build with support for the processor's internal instruction clock, use:
 
     % make CFLAGS="-DUSE_PROCESSOR_CLOCK"
 
-Verbose build
--------------
+## Verbose build
 
 Valkey will build with a user-friendly colorized output by default.
 If you want to see a more verbose output, use the following:
 
     % make V=1
 
-Running Valkey
--------------
+## Running Valkey
 
 To run Valkey with the default configuration, just type:
 
@@ -147,14 +139,12 @@ as options using the command line. Examples:
 All the options in valkey.conf are also supported as options using the command
 line, with exactly the same name.
 
-Running Valkey with TLS:
-------------------
+## Running Valkey with TLS:
 
 Please consult the [TLS.md](TLS.md) file for more information on
 how to use Valkey with TLS.
 
-Playing with Valkey
-------------------
+## Playing with Valkey
 
 You can use valkey-cli to play with Valkey. Start a valkey-server instance,
 then in another terminal try the following:
@@ -173,8 +163,7 @@ then in another terminal try the following:
     (integer) 2
     valkey>
 
-Installing Valkey
------------------
+## Installing Valkey
 
 In order to install Valkey binaries into /usr/local/bin, just use:
 
@@ -206,8 +195,8 @@ system reboots.
 You'll be able to stop and start Valkey using the script named
 `/etc/init.d/valkey_<portnumber>`, for instance `/etc/init.d/valkey_6379`.
 
-Code contributions
------------------
+## Code contributions
+
 Please see the [CONTRIBUTING.md][2]. For security bugs and vulnerabilities, please see [SECURITY.md][3].
 
 [1]: https://github.com/valkey-io/valkey/blob/unstable/COPYING
